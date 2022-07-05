@@ -19,4 +19,4 @@ public_key <- "XXXX"
 private_key <- "XXXX" 
 ```
 
-DISCLAIMER: This package is still under development and I am not liable for any issues that may arise from using this package. 
+DISCLAIMER: This package is still under development and I am not liable for any issues that may arise from using it. 
