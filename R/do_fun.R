@@ -10,6 +10,7 @@
 #' @param price Limit price for `limit` orders or trigger price for `stop-loss`, `stop-loss-limit`, `take-profit`, and `take-profit-limit` orders.
 #' @param leverage Amount of leverage desired (default = "none").
 #' @param timeinforce Time-in-force of the order to specify how long it should remain in the order book before being cancelled (default = "GTC"). GTC (Good-'til-cancelled) is default if the parameter is omitted. IOC (immediate-or-cancel) will immediately execute the amount possible and cancel any remaining balance rather than resting in the book. GTD (good-'til-date), if specified, must coincide with a desired `expiretm`.
+#' @param oflages Option: `post`, this prevents placing a limit buy order that instantly matches against the sell side of the order book (and vice versa for sell orders) which would result in taker fees. The order will either get posted to the order book or be cancelled, ensuring a maker fee when executed.
 #' @param validate Validate inputs only. Do not submit order (default = FALSE).
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
@@ -20,16 +21,16 @@
 #' @examples
 #' add_order("XBTUSD", "market", "buy", 0.001)
 #' @export
-add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "none", timeinforce = "GTC", validate=FALSE) {
+add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "none", timeinforce = "GTC", oflags, validate=FALSE) {
 
   url <- "https://api.kraken.com/0/private/AddOrder"
   method_path <- base::gsub("^.*?kraken.com", "", url)
   nonce <- base::as.character(base::as.numeric(base::Sys.time()) * 1000000)
   
   if(is.null(price)) {
-  post <- base::paste0("nonce=", nonce, "&pair=", pair, "&type=", type, "&ordertype=", ordertype, "&volume=", volume, "&leverage=", leverage, "&timeinforce=", timeinforce, "&validate=", validate)
+  post <- base::paste0("nonce=", nonce, "&pair=", pair, "&type=", type, "&ordertype=", ordertype, "&volume=", volume, "&leverage=", leverage, "&timeinforce=", timeinforce, "&oflags=", oflags, "&validate=", validate)
   } else {
-  post <- base::paste0("nonce=", nonce, "&pair=", pair, "&type=", type, "&ordertype=", ordertype, "&volume=", volume,"&price=", price, "&leverage=", leverage, "&timeinforce=", timeinforce, "&validate=", validate)
+  post <- base::paste0("nonce=", nonce, "&pair=", pair, "&type=", type, "&ordertype=", ordertype, "&volume=", volume,"&price=", price, "&leverage=", leverage, "&timeinforce=", timeinforce, "&oflags=", oflags, "&validate=", validate)
   }
   
   secret <- RCurl::base64Decode(private_key, mode = "raw")

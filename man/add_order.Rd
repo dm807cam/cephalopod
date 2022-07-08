@@ -12,6 +12,7 @@ add_order(
   price = NULL,
   leverage = "none",
   timeinforce = "GTC",
+  oflags,
   validate = FALSE
 )
 }
@@ -31,6 +32,8 @@ add_order(
 \item{timeinforce}{Time-in-force of the order to specify how long it should remain in the order book before being cancelled (default = "GTC"). GTC (Good-'til-cancelled) is default if the parameter is omitted. IOC (immediate-or-cancel) will immediately execute the amount possible and cancel any remaining balance rather than resting in the book. GTD (good-'til-date), if specified, must coincide with a desired \code{expiretm}.}
 
 \item{validate}{Validate inputs only. Do not submit order (default = FALSE).}
+
+\item{oflages}{Option: \code{post}, this prevents placing a limit buy order that instantly matches against the sell side of the order book (and vice versa for sell orders) which would result in taker fees. The order will either get posted to the order book or be cancelled, ensuring a maker fee when executed.}
 }
 \description{
 Note: Check get_asset_pairs() for details on the available trading pairs, their price and quantity precisions, order minimums, and available leverage.
