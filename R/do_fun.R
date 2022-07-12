@@ -23,6 +23,9 @@
 #' @export
 add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "none", timeinforce = "GTC", oflags, validate=FALSE) {
 
+  # Check server status
+  check_sysstatus()
+  
   url <- "https://api.kraken.com/0/private/AddOrder"
   method_path <- base::gsub("^.*?kraken.com", "", url)
   nonce <- base::as.character(base::as.numeric(base::Sys.time()) * 1000000)
@@ -65,6 +68,9 @@ add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "n
 #' @export
 cancel_order <- function(txid) { 
   
+  # Check server status
+  check_sysstatus()
+  
   url <- "https://api.kraken.com/0/private/CancelOrder"
   method_path <- base::gsub("^.*?kraken.com", "", url)
   nonce <- base::as.character(base::as.numeric(base::Sys.time()) * 1000000)
@@ -101,6 +107,9 @@ cancel_order <- function(txid) {
 #' cancel_all_orders()
 #' @export
 cancel_all_orders <- function() { 
+  
+  # Check server status
+  check_sysstatus()
   
   url <- "https://api.kraken.com/0/private/CancelAll"
   method_path <- base::gsub("^.*?kraken.com", "", url)
@@ -139,6 +148,9 @@ cancel_all_orders <- function() {
 #' cancel_all_orders_afterX(60)
 #' @export
 cancel_all_orders_afterX <- function(timeout) {
+  
+  # Check server status
+  check_sysstatus()
   
   url <- "https://api.kraken.com/0/private/CancelAllOrdersAfter"
   method_path <- base::gsub("^.*?kraken.com", "", url)

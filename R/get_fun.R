@@ -50,6 +50,10 @@ get_systime <- function() {
 #' get_asset_pairs()
 #' @export
 get_asset_pairs <- function() {
+  
+  # Check server status
+  check_sysstatus()
+  
   url <- "https://api.kraken.com/0/public/AssetPairs"
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
@@ -72,6 +76,10 @@ get_asset_pairs <- function() {
 #' get_spread("XBTUSD")
 #' @export
 get_spread <- function(pair) {
+  
+  # Check server status
+  check_sysstatus()
+  
   url <- paste0("https://api.kraken.com/0/public/Spread?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
@@ -97,6 +105,10 @@ get_spread <- function(pair) {
 #' get_trades("XBTUSD")
 #' @export
 get_trades <- function(pair) {
+  
+  # Check server status
+  check_sysstatus()
+  
   url <- paste0("https://api.kraken.com/0/public/Trades?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
@@ -124,6 +136,10 @@ get_trades <- function(pair) {
 #' get_ohlc("XBTUSD", "2022-01-01", 1440)
 #' @export
 get_ohlc <- function(pair, since, interval) {
+  
+  # Check server status
+  check_sysstatus()
+  
   url <- "https://api.kraken.com/0/public/OHLC?"
   parameters <- base::paste0("pair=", pair, "&since=", since, "&interval=", interval)
   out <- jsonlite::fromJSON(base::paste0(url, parameters))
@@ -150,6 +166,10 @@ get_ohlc <- function(pair, since, interval) {
 #' get_bids("XBTUSD")
 #' @export
 get_bids <- function(pair) {
+  
+  # Check server status
+  check_sysstatus()
+  
   url <- paste0("https://api.kraken.com/0/public/Depth?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
@@ -175,6 +195,10 @@ get_bids <- function(pair) {
 #' get_bids("XBTUSD")
 #' @export
 get_asks <- function(pair) {
+  
+  # Check server status
+  check_sysstatus()
+  
   url <- paste0("https://api.kraken.com/0/public/Depth?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
@@ -204,6 +228,9 @@ get_asks <- function(pair) {
 #' get_available_balance()
 #' @export
 get_available_balance <- function() {
+  
+  # Check server status
+  check_sysstatus()
   
   url <- "https://api.kraken.com/0/private/Balance"
   method_path <- base::gsub("^.*?kraken.com", "", url)
@@ -243,6 +270,9 @@ get_available_balance <- function() {
 #' get_open_orders()
 #' @export
 get_open_orders <- function() {
+  
+  # Check server status
+  check_sysstatus()
   
   url <- "https://api.kraken.com/0/private/OpenOrders"
   method_path <- base::gsub("^.*?kraken.com", "", url)
@@ -289,6 +319,9 @@ get_open_orders <- function() {
 #' get_trade_history()
 #' @export
 get_trade_history <- function(type="all", trades=FALSE, start=NULL, end=NULL) { 
+  
+  # Check server status
+  check_sysstatus()
   
   url <- "https://api.kraken.com/0/private/TradesHistory"
   method_path <- base::gsub("^.*?kraken.com", "", url)
