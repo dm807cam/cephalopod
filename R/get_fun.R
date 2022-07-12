@@ -155,6 +155,41 @@ get_ohlc <- function(pair, since, interval) {
   return(out)
 }
 
+#' Get all OHLC data
+#' 
+#' Get OHLC data for all available asset pairs
+#' Note: the last entry in the OHLC array is for the current, not-yet-committed frame and will always be present, regardless of the value of `since`.
+#'
+#' @param since Return up to 720 OHLC data points since given timestamp.
+#' @param interval Time intervals in minutes.
+#' @param qfilter Filter to select a quote pair (Options: `ZEUR`, `ZUSD`, `ZAUD`, `XETH`, `XXBT`, `USDT`, `ZJPY`, `CHF`, `DAI`, `USDC`, `ZCAD`, `DOT`).
+#' @return OHLC data (dataframe)
+#' @importFrom jsonlite fromJSON
+#' @examples
+#' get_ohlc("XBTUSD", "2022-01-01", 1440)
+#' @export
+get_all_ohlc <- function(since, interval, qfilter=NULL) {
+  
+  # Get asset pairs
+  asset_pairs <- get_asset_pairs()
+  if(!is.null(qfilter)) {
+    asset_pairs <- asset_pairs[asset_pairs$quote == qfilter,]
+  }
+  
+  # Download daily OHLC for all asset_pairs
+  datalist <- list()
+  pairs <- unique(asset_pairs$altname)
+  for(ii in 1:length(pairs)) {
+    tmp <- get_ohlc(pairs[[ii]],since,interval)
+    tmp <- cbind(altname=pairs[[ii]], tmp)
+    datalist[[ii]] <- tmp
+    progress(ii)
+  }
+  out <- data.frame(do.call("rbind", datalist))
+  
+  return(out)
+}
+
 #' Get bids
 #' 
 #' Returns dataframe of bids in order book for an asset pair.
