@@ -10,7 +10,7 @@
 #' @param price Limit price for `limit` orders or trigger price for `stop-loss`, `stop-loss-limit`, `take-profit`, and `take-profit-limit` orders.
 #' @param leverage Amount of leverage desired (default = "none").
 #' @param timeinforce Time-in-force of the order to specify how long it should remain in the order book before being cancelled (default = "GTC"). GTC (Good-'til-cancelled) is default if the parameter is omitted. IOC (immediate-or-cancel) will immediately execute the amount possible and cancel any remaining balance rather than resting in the book. GTD (good-'til-date), if specified, must coincide with a desired `expiretm`.
-#' @param oflages Option: `post`, this prevents placing a limit buy order that instantly matches against the sell side of the order book (and vice versa for sell orders) which would result in taker fees. The order will either get posted to the order book or be cancelled, ensuring a maker fee when executed.
+#' @param oflags Option: `post`, this prevents placing a limit buy order that instantly matches against the sell side of the order book (and vice versa for sell orders) which would result in taker fees. The order will either get posted to the order book or be cancelled, ensuring a maker fee when executed.
 #' @param validate Validate inputs only. Do not submit order (default = FALSE).
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
@@ -43,7 +43,7 @@ add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "n
   out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
   
   if(length(out$error) == 0) {
-    out <- out$result
+    out <- out$result$$descr$order
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
     out <- out$error
