@@ -386,7 +386,7 @@ get_trade_history <- function(type="all", trades=FALSE, start=NULL, end=NULL) {
   
   if(length(out$error) == 0) {
     out <- data.frame(do.call("rbind", out$result$trades))
-    out[] <- lapply(out, as.numeric)
+    out[,c(4,7:11)] <- lapply(out[,c(4,7:11)], as.numeric)
     out$time <- as.POSIXct(out$time, origin="1970-01-01")
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
