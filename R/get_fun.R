@@ -320,7 +320,7 @@ get_open_orders <- function() {
   out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
   
   if(length(out$error) == 0) {
-    if(length(out$open) == 0) {
+    if(length(out$result$open) == 0) {
       warning("I could not find any open orders.", call. = F)
       out <- out$result$open
     } else {  
