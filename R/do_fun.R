@@ -43,7 +43,7 @@ add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "n
   out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
   
   if(length(out$error) == 0) {
-    out <- out$result$$descr$order
+    out <- out$result
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
     out <- out$error
