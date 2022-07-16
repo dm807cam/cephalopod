@@ -334,11 +334,11 @@ get_open_orders <- function() {
   return(out)
 }
 
-#' Get open orders
+#' Get closed orders
 #' 
-#' Retrieve information about currently open orders.
+#' Retrieve information about all closed orders (fullfilled and cancelled).
 #'
-#' @return Open orders (dataframe)
+#' @return Closed orders (dataframe)
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
 #' @importFrom digest hmac
@@ -346,7 +346,7 @@ get_open_orders <- function() {
 #' @importFrom httr POST
 #' @importFrom httr add_headers
 #' @examples
-#' get_open_orders()
+#' get_closed_orders()
 #' @export
 get_closed_orders <- function() {
   
