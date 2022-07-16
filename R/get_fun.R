@@ -334,6 +334,51 @@ get_open_orders <- function() {
   return(out)
 }
 
+#' Get open orders
+#' 
+#' Retrieve information about currently open orders.
+#'
+#' @return Open orders (dataframe)
+#' @importFrom RCurl base64Decode
+#' @importFrom digest digest
+#' @importFrom digest hmac
+#' @importFrom httr content
+#' @importFrom httr POST
+#' @importFrom httr add_headers
+#' @examples
+#' get_open_orders()
+#' @export
+get_closed_orders <- function() {
+  
+  # Check server status
+  check_sysstatus()
+  
+  url <- "https://api.kraken.com/0/private/ClosedOrders"
+  method_path <- base::gsub("^.*?kraken.com", "", url)
+  nonce <- base::as.character(base::as.numeric(base::Sys.time()) * 1000000)
+  post <- base::paste0("nonce=", nonce)
+  
+  secret <- RCurl::base64Decode(private_key, mode = "raw")
+  sha256 <- digest::digest(object = base::paste0(nonce, post), algo = "sha256", serialize = F, raw = T)
+  hmac <- digest::hmac(key = secret, object = c(base::charToRaw(method_path), sha256), algo = "sha512", raw = T)
+  
+  out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
+  
+  if(length(out$error) == 0) {
+    if(length(out$result$closed) == 0) {
+      warning("I could not find any open orders.", call. = F)
+      out <- out$result$closed
+    } else {  
+      out <- out$result$closed
+    }
+  } else {
+    warning(base::paste0(error_msg,out$error[[1]]))
+    out <- out$error
+  }  
+  
+  return(out)
+}
+
 #' Get trade history
 #' 
 #' Retrieve information about trades/fills. 50 results are returned at a time, the most recent by default.
