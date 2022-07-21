@@ -8,9 +8,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "dennis@mayk.eu",
            comment = c(ORCID = "0000-0002-5017-1495"))
-Description: Provides a useful framework to trade cryptocurrencies using the Kraken API.
+Description: A framework to trade cryptocurrencies using the Kraken API <https://api.kraken.com> that provides functions to obtain OHLC data for different asset pairs, retrieve information about open and closed orders, submit or cancel orders, and gain insights into Kraken's order book.  
 License: AGPL (>= 3)
-URL: https://github.com/dm807cam/cephalopod, https://api.kraken.com/
+URL: https://github.com/dm807cam/cephalopod
 BugReports: https://github.com/dm807cam/cephalopod/issues
 Depends:
     R (>= 3.5.0)
@@ -23,3 +23,4 @@ Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+

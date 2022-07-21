@@ -12,6 +12,7 @@
 #' @param timeinforce Time-in-force of the order to specify how long it should remain in the order book before being cancelled (default = "GTC"). GTC (Good-'til-cancelled) is default if the parameter is omitted. IOC (immediate-or-cancel) will immediately execute the amount possible and cancel any remaining balance rather than resting in the book. GTD (good-'til-date), if specified, must coincide with a desired `expiretm`.
 #' @param oflags Options: `immediate` or `post`, this prevents placing a limit buy order that instantly matches against the sell side of the order book (and vice versa for sell orders) which would result in taker fees. The order will either get posted to the order book or be cancelled, ensuring a maker fee when executed.
 #' @param validate Validate inputs only. Do not submit order (default = FALSE).
+#' @return Order confirmation (string)
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
 #' @importFrom digest hmac
@@ -61,6 +62,7 @@ add_order <- function(pair, type, ordertype, volume, price = NULL, leverage = "n
 #' Cancel a particular open order (or set of open orders) by `txid`.
 #'
 #' @param txid Open order transaction ID (txid). A list of open order can be obtained with `get_open_orders()`.
+#' @return Confirmation message (string)
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
 #' @importFrom digest hmac
@@ -98,7 +100,8 @@ cancel_order <- function(txid) {
 #' 
 #' Cancel a particular open order (or set of open orders) by `txid`.
 #' A list of open order can be obtained with `get_open_orders()`.
-#'
+#' 
+#' @return Confirmation message (string)
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
 #' @importFrom digest hmac
@@ -138,6 +141,7 @@ cancel_all_orders <- function() {
 #' This function provides a "Dead Man's Switch" mechanism to protect the client from network malfunction, extreme latency or unexpected matching engine downtime. The client can send a request with a timeout (in seconds), that will start a countdown timer which will cancel all client orders when the timer expires. The client has to keep sending new requests to push back the trigger time, or deactivate the mechanism by specifying a timeout of 0. If the timer expires, all orders are cancelled and then the timer remains disabled until the client provides a new (non-zero) timeout.
 #'
 #' @param timeout Timeout in seconds
+#' @return Confirmation message (string)
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
 #' @importFrom digest hmac
