@@ -123,7 +123,7 @@ cancel_all_orders <- function() {
   out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
   
   if(length(out$error) == 0) {
-    warning(paste0("I canceled: ",out$result[[1]]," orders for you."))
+    warning(base::paste0("I canceled: ",out$result[[1]]," orders for you."))
     out <- out$result[[1]]
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
@@ -164,7 +164,7 @@ cancel_all_orders_afterX <- function(timeout) {
   out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
   
   if(length(out$error) == 0) {
-    warning(paste0("I will cancel all orders for you on: ",out$result[[1]],""))
+    warning(base::paste0("I will cancel all orders for you on: ",out$result[[1]],""))
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
     out <- out$error

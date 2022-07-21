@@ -80,7 +80,7 @@ get_spread <- function(pair) {
   # Check server status
   check_sysstatus()
   
-  url <- paste0("https://api.kraken.com/0/public/Spread?pair=",pair)
+  url <- base::paste0("https://api.kraken.com/0/public/Spread?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
     out <- data.frame(out$result[[1]])
@@ -109,7 +109,7 @@ get_trades <- function(pair) {
   # Check server status
   check_sysstatus()
   
-  url <- paste0("https://api.kraken.com/0/public/Trades?pair=",pair)
+  url <- base::paste0("https://api.kraken.com/0/public/Trades?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
     out <- data.frame(out$result[[1]])
@@ -204,7 +204,7 @@ get_bids <- function(pair) {
   # Check server status
   check_sysstatus()
   
-  url <- paste0("https://api.kraken.com/0/public/Depth?pair=",pair)
+  url <- base::paste0("https://api.kraken.com/0/public/Depth?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
     out <- data.frame(out$result[[1]]$bids)
@@ -233,7 +233,7 @@ get_asks <- function(pair) {
   # Check server status
   check_sysstatus()
   
-  url <- paste0("https://api.kraken.com/0/public/Depth?pair=",pair)
+  url <- base::paste0("https://api.kraken.com/0/public/Depth?pair=",pair)
   out <- jsonlite::fromJSON(url)
   if(length(out$error) == 0) {
     out <- data.frame(out$result[[1]]$asks)

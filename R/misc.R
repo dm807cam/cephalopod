@@ -7,6 +7,6 @@ error_msg <- "Arghh, I encountered an error: "
 # Check server status
 check_sysstatus <- function() {
   if(cephalopod::get_sysstatus() != "online") {
-    stop(paste0(error_msg, "Can't connect to Kraken server." ))
+    stop(base::paste0(error_msg, "Can't connect to Kraken server." ))
   }
 }
