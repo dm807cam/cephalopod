@@ -21,6 +21,3 @@ Trade history (dataframe)
 \description{
 Retrieve information about trades/fills. 50 results are returned at a time, the most recent by default.
 }
-\examples{
-get_trade_history()
-}

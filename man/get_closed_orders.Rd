@@ -12,6 +12,3 @@ Closed orders (dataframe)
 \description{
 Retrieve information about all closed orders (fullfilled and cancelled).
 }
-\examples{
-get_closed_orders()
-}

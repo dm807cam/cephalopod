@@ -258,8 +258,6 @@ get_asks <- function(pair) {
 #' @importFrom httr content
 #' @importFrom httr POST
 #' @importFrom httr add_headers
-#' @examples
-#' get_available_balance()
 #' @export
 get_available_balance <- function() {
   
@@ -300,8 +298,6 @@ get_available_balance <- function() {
 #' @importFrom httr content
 #' @importFrom httr POST
 #' @importFrom httr add_headers
-#' @examples
-#' get_open_orders()
 #' @export
 get_open_orders <- function() {
   
@@ -345,8 +341,6 @@ get_open_orders <- function() {
 #' @importFrom httr content
 #' @importFrom httr POST
 #' @importFrom httr add_headers
-#' @examples
-#' get_closed_orders()
 #' @export
 get_closed_orders <- function() {
   
@@ -394,8 +388,6 @@ get_closed_orders <- function() {
 #' @importFrom httr content
 #' @importFrom httr POST
 #' @importFrom httr add_headers
-#' @examples
-#' get_trade_history()
 #' @export
 get_trade_history <- function(type="all", trades=FALSE, start=NULL, end=NULL) { 
   

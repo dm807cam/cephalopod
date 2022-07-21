@@ -12,6 +12,3 @@ cancel_order(txid)
 \description{
 Cancel a particular open order (or set of open orders) by \code{txid}.
 }
-\examples{
-cancel_order("OYVGEW-VYV5B-UUEXSK")
-}

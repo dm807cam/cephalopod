@@ -12,6 +12,3 @@ Open orders (dataframe)
 \description{
 Retrieve information about currently open orders.
 }
-\examples{
-get_open_orders()
-}

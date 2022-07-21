@@ -12,6 +12,3 @@ Balance (dataframe)
 \description{
 Retrieve a summary of collateral balances, margin position valuations, equity and margin level.
 }
-\examples{
-get_available_balance()
-}

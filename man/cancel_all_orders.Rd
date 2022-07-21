@@ -10,6 +10,3 @@ cancel_all_orders()
 Cancel a particular open order (or set of open orders) by \code{txid}.
 A list of open order can be obtained with \code{get_open_orders()}.
 }
-\examples{
-cancel_all_orders()
-}
