@@ -402,11 +402,11 @@ get_order_info <- function(txid) {
   out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
   
   if(length(out$error) == 0) {
-    if(length(out$result$closed) == 0) {
-      warning("I could not find any open orders.", call. = F)
-      out <- out$result$closed
+    if(length(out$result) == 0) {
+      warning(base::paste0("I could not find order with txid: ", txid), call. = F)
+      out <- out$result
     } else {  
-      out <- out$result$closed
+      out <- out$result
     }
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
