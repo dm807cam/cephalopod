@@ -404,9 +404,9 @@ get_order_info <- function(txid) {
   if(length(out$error) == 0) {
     if(length(out$result) == 0) {
       warning(base::paste0("I could not find order with txid: ", txid), call. = F)
-      out <- out$result
+      out <- out$result[[txid]]
     } else {  
-      out <- out$result
+      out <- out$result[[txid]]
     }
   } else {
     warning(base::paste0(error_msg,out$error[[1]]))
