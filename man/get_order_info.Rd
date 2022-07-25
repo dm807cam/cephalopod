@@ -6,9 +6,12 @@
 \usage{
 get_order_info(txid)
 }
+\arguments{
+\item{txid}{Order ID.}
+}
 \value{
 Order Info (dataframe)
 }
 \description{
-Retrieve information about an order (fullfilled and cancelled).
+Retrieve information about an order (fulfilled and cancelled).
 }

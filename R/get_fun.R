@@ -375,8 +375,9 @@ get_closed_orders <- function() {
 
 #' Query Orders Info
 #' 
-#' Retrieve information about an order (fullfilled and cancelled).
+#' Retrieve information about an order (fulfilled and cancelled).
 #'
+#' @param txid Order ID.
 #' @return Order Info (dataframe)
 #' @importFrom RCurl base64Decode
 #' @importFrom digest digest
