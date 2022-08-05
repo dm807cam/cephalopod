@@ -9,6 +9,9 @@ cancel_order(txid)
 \arguments{
 \item{txid}{Open order transaction ID (txid). A list of open order can be obtained with \code{get_open_orders()}.}
 }
+\value{
+Confirmation message (string)
+}
 \description{
 Cancel a particular open order (or set of open orders) by \code{txid}.
 }
