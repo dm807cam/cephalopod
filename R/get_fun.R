@@ -169,7 +169,7 @@ get_ohlc <- function(pair, since, interval) {
 #' @examples
 #' get_ohlc("XBTUSD", "2022-01-01", 1440)
 #' @export
-get_all_ohlc <- function(since, interval, qfilter=NULL, timeout=2) {
+get_all_ohlc <- function(since, interval, qfilter=NULL, timeout) {
   
   # Get asset pairs
   asset_pairs <- get_asset_pairs()
