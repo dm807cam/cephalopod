@@ -4,7 +4,7 @@
 \alias{get_all_ohlc}
 \title{Get all OHLC data}
 \usage{
-get_all_ohlc(since, interval, qfilter = NULL)
+get_all_ohlc(since, interval, qfilter = NULL, timeout = 2)
 }
 \arguments{
 \item{since}{Return up to 720 OHLC data points since given timestamp.}
@@ -12,6 +12,8 @@ get_all_ohlc(since, interval, qfilter = NULL)
 \item{interval}{Time intervals in minutes.}
 
 \item{qfilter}{Filter to select a quote pair (Options: \code{ZEUR}, \code{ZUSD}, \code{ZAUD}, \code{XETH}, \code{XXBT}, \code{USDT}, \code{ZJPY}, \code{CHF}, \code{DAI}, \code{USDC}, \code{ZCAD}, \code{DOT}).}
+
+\item{timeout}{Timeout in seconds between API requests.}
 }
 \value{
 OHLC data (dataframe)

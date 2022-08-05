@@ -163,12 +163,13 @@ get_ohlc <- function(pair, since, interval) {
 #' @param since Return up to 720 OHLC data points since given timestamp.
 #' @param interval Time intervals in minutes.
 #' @param qfilter Filter to select a quote pair (Options: `ZEUR`, `ZUSD`, `ZAUD`, `XETH`, `XXBT`, `USDT`, `ZJPY`, `CHF`, `DAI`, `USDC`, `ZCAD`, `DOT`).
+#' @param timeout Timeout in seconds between API requests.
 #' @return OHLC data (dataframe)
 #' @importFrom jsonlite fromJSON
 #' @examples
 #' get_ohlc("XBTUSD", "2022-01-01", 1440)
 #' @export
-get_all_ohlc <- function(since, interval, qfilter=NULL) {
+get_all_ohlc <- function(since, interval, qfilter=NULL, timeout=2) {
   
   # Get asset pairs
   asset_pairs <- get_asset_pairs()
@@ -183,6 +184,7 @@ get_all_ohlc <- function(since, interval, qfilter=NULL) {
     tmp <- get_ohlc(pairs[[ii]],since,interval)
     tmp <- cbind(altname=pairs[[ii]], tmp)
     datalist[[ii]] <- tmp
+    Sys.sleep(timeout)
   }
   out <- data.frame(do.call("rbind", datalist))
   
