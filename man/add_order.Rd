@@ -35,6 +35,9 @@ add_order(
 
 \item{validate}{Validate inputs only. Do not submit order (default = FALSE).}
 }
+\value{
+Order confirmation (string)
+}
 \description{
 Note: Check get_asset_pairs() for details on the available trading pairs, their price and quantity precisions, order minimums, and available leverage.
 For more information refer to the Kraken Docs: https://docs.kraken.com/rest/#operation/addOrder

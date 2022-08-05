@@ -375,6 +375,51 @@ get_closed_orders <- function() {
   return(out)
 }
 
+#' Query Orders Info
+#' 
+#' Retrieve information about an order (fulfilled and cancelled).
+#'
+#' @param txid Order ID.
+#' @return Order Info (dataframe)
+#' @importFrom RCurl base64Decode
+#' @importFrom digest digest
+#' @importFrom digest hmac
+#' @importFrom httr content
+#' @importFrom httr POST
+#' @importFrom httr add_headers
+#' @export
+get_order_info <- function(txid) {
+  
+  # Check server status
+  check_sysstatus()
+  
+  url <- "https://api.kraken.com/0/private/QueryOrders"
+  method_path <- base::gsub("^.*?kraken.com", "", url)
+  nonce <- base::as.character(base::as.numeric(base::Sys.time()) * 1000000)
+  post <- base::paste0("nonce=", nonce, "&txid=", txid)
+  
+  secret <- RCurl::base64Decode(private_key, mode = "raw")
+  sha256 <- digest::digest(object = base::paste0(nonce, post), algo = "sha256", serialize = F, raw = T)
+  hmac <- digest::hmac(key = secret, object = c(base::charToRaw(method_path), sha256), algo = "sha512", raw = T)
+  
+  out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
+  
+  if(length(out$error) == 0) {
+    if(length(out$result) == 0) {
+      warning(base::paste0("I could not find order with txid: ", txid), call. = F)
+      out <- out$result[[txid]]
+    } else {  
+      out <- out$result[[txid]]
+    }
+  } else {
+    warning(base::paste0(error_msg,out$error[[1]]))
+    out <- out$error
+  }  
+  
+  return(out)
+}
+
+
 #' Get trade history
 #' 
 #' Retrieve information about trades/fills. 50 results are returned at a time, the most recent by default.

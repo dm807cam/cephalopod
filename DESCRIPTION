@@ -1,6 +1,6 @@
 Type: Package
 Package: cephalopod
-Title: Kraken API from R
+Title: Access the Kraken API
 Version: 0.0.1
 Authors@R: 
     person(given = "Dennis",
@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "dennis@mayk.eu",
            comment = c(ORCID = "0000-0002-5017-1495"))
-Description: cephalopod provides useful framework to access the Kraken API to monitor, place or cancel orders. Currently, the package contains API-calls that I personally found useful when trading on Kraken. Feel free to submit an issue on Github to discuss new features.
+Description: A framework to trade cryptocurrencies using the Kraken API <https://api.kraken.com> that provides functions to obtain OHLC data for different asset pairs, retrieve information about open and closed orders, submit or cancel orders, and gain insights into Kraken's order book.  
 License: AGPL (>= 3)
 URL: https://github.com/dm807cam/cephalopod
 BugReports: https://github.com/dm807cam/cephalopod/issues
