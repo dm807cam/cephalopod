@@ -183,6 +183,7 @@ get_all_ohlc <- function(since, interval, qfilter=NULL) {
     tmp <- get_ohlc(pairs[[ii]],since,interval)
     tmp <- cbind(altname=pairs[[ii]], tmp)
     datalist[[ii]] <- tmp
+    Sys.sleep(1)
   }
   out <- data.frame(do.call("rbind", datalist))
   
