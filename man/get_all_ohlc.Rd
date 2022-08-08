@@ -4,7 +4,7 @@
 \alias{get_all_ohlc}
 \title{Get all OHLC data}
 \usage{
-get_all_ohlc(since, interval, qfilter = NULL, timeout = 2)
+get_all_ohlc(since, interval, qfilter = NULL, timeout)
 }
 \arguments{
 \item{since}{Return up to 720 OHLC data points since given timestamp.}

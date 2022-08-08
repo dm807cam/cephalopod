@@ -289,6 +289,47 @@ get_available_balance <- function() {
   return(out)
 }
 
+#' Get trade balance
+#' 
+#' Retrieve a summary of collateral balances, margin position valuations, equity and margin level.
+#'
+#' @return Balance (dataframe)
+#' @param asset Asset.
+#' @importFrom RCurl base64Decode
+#' @importFrom digest digest
+#' @importFrom digest hmac
+#' @importFrom httr content
+#' @importFrom httr POST
+#' @importFrom httr add_headers
+#' @export
+get_trade_balance <- function(asset) {
+  
+  # Check server status
+  check_sysstatus()
+  
+  url <- "https://api.kraken.com/0/private/TradeBalance"
+  method_path <- base::gsub("^.*?kraken.com", "", url)
+  nonce <- base::as.character(base::as.numeric(base::Sys.time()) * 1000000)
+  post <- base::paste0("nonce=", nonce, "&asset=", asset)
+  
+  secret <- RCurl::base64Decode(private_key, mode = "raw")
+  sha256 <- digest::digest(object = base::paste0(nonce, post), algo = "sha256", serialize = F, raw = T)
+  hmac <- digest::hmac(key = secret, object = c(base::charToRaw(method_path), sha256), algo = "sha512", raw = T)
+  
+  out <- httr::content(httr::POST(url, body = post, httr::add_headers(c("API-Key" = public_key, "API-Sign" = RCurl::base64Encode(hmac)))))
+  
+  if(length(out$error) == 0) {
+    out <- data.frame(do.call("rbind", out$result))
+    colnames(out) <- c("balance")
+    out[] <- lapply(out, as.numeric)
+  } else {
+    warning(base::paste0(error_msg,out$error[[1]]))
+    out <- out$error
+  }  
+  
+  return(out)
+}
+
 #' Get open orders
 #' 
 #' Retrieve information about currently open orders.
