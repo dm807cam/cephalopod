@@ -80,8 +80,16 @@ get_spread <- function(pair) {
   # Check server status
   check_sysstatus()
   
+  # The Kraken API seems to be buggy when spread data is called
+  # repeat until the API returns the data required
+  repeat{
   url <- base::paste0("https://api.kraken.com/0/public/Spread?pair=",pair)
   tmp <- jsonlite::fromJSON(url)
+  
+  if(length(tmp$result[[1]]) != 0)  break;
+  Sys.sleep(1)
+  }
+  
   if(length(tmp$error) == 0) {
     out <- data.frame(tmp$result[[1]])
     colnames(out) <- c("time", "bid", "ask")
