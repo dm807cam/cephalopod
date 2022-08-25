@@ -81,15 +81,15 @@ get_spread <- function(pair) {
   check_sysstatus()
   
   url <- base::paste0("https://api.kraken.com/0/public/Spread?pair=",pair)
-  out <- jsonlite::fromJSON(url)
-  if(length(out$error) == 0) {
-    out <- data.frame(out$result[[1]])
+  tmp <- jsonlite::fromJSON(url)
+  if(length(tmp$error) == 0) {
+    out <- data.frame(tmp$result[[1]])
     colnames(out) <- c("time", "bid", "ask")
     out[] <- lapply(out, as.numeric)
     out$time <- as.POSIXct(out$time, origin="1970-01-01")
   } else {
-    warning(base::paste0(error_msg,out$error[[1]]))
-    out <- out$error
+    warning(base::paste0(error_msg,tmp$error[[1]]))
+    out <- tmp$error
   }  
   return(out)
 }
